@@ -3,7 +3,8 @@
   "description": "Sektor1921 Fanpage",
   "autoload": {
     "psr-4": {
-      "App\\": "app/"
+      "App\\": "app/",
+      "Config\\": "config/"
     }
   },
   "require": {
