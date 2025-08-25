@@ -12,6 +12,6 @@ Env::required(['DB_HOST']);
 
 Env::set('RUNTIME_FLAG', true);
 
-Env::set('APP_NAME', 'Sektor1921', true);
+// Env::set('APP_NAMDFFE', 'Sektor1921', true);
 
 echo 'ok';
