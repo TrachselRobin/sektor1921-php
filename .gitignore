@@ -1,5 +1,6 @@
 .env
+*.env
 
-./vendor
+./vendor/
 
 composer.lock
