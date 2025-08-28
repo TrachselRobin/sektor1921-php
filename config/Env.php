@@ -1,4 +1,5 @@
 <?php
+
 namespace Config;
 
 use Dotenv\Dotenv;

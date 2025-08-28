@@ -1,19 +1,18 @@
 <?php
+
 namespace App\Core;
 
 use PDO;
 use PDOException;
 use Config\Env;
 
-final class Database
-{
+final class Database {
     private static ?PDO $pdo = null;
 
     /**
      * Create (or reuse) a PDO connection from .env
      */
-    public static function pdo(): PDO
-    {
+    public static function pdo(): PDO {
         if (self::$pdo instanceof PDO) {
             return self::$pdo;
         }
@@ -63,8 +62,7 @@ final class Database
     }
 
     /** Prepare + execute with params; returns PDOStatement */
-    public static function run(string $sql, array $params = []): \PDOStatement
-    {
+    public static function run(string $sql, array $params = []): \PDOStatement {
         $stmt = self::pdo()->prepare($sql);
         foreach ($params as $key => $val) {
             // Support both numeric and named params
@@ -76,50 +74,51 @@ final class Database
     }
 
     /** Fetch all rows */
-    public static function all(string $sql, array $params = []): array
-    {
+    public static function getAll(string $sql, array $params = []): array {
         return self::run($sql, $params)->fetchAll();
     }
 
     /** Fetch single row (or null) */
-    public static function row(string $sql, array $params = []): ?array
-    {
+    public static function getSingleRow(string $sql, array $params = []): ?array {
         $r = self::run($sql, $params)->fetch();
         return $r === false ? null : $r;
     }
 
     /** Fetch single column from first row (or null) */
-    public static function scalar(string $sql, array $params = [])
-    {
+    public static function getSingleColumn(string $sql, array $params = []) {
         $v = self::run($sql, $params)->fetchColumn();
         return $v === false ? null : $v;
     }
 
     /** Execute (INSERT/UPDATE/DELETE); returns affected rows */
-    public static function exec(string $sql, array $params = []): int
-    {
+    public static function exec(string $sql, array $params = []): int {
         return self::run($sql, $params)->rowCount();
     }
 
     /** Last insert id */
-    public static function lastId(): string
-    {
+    public static function lastId(): string {
         return self::pdo()->lastInsertId();
     }
 
     /** Transactions */
-    public static function begin(): void  { self::pdo()->beginTransaction(); }
-    public static function commit(): void { self::pdo()->commit(); }
-    public static function rollBack(): void
-    {
+    public static function begin(): void  {
+        self::pdo()->beginTransaction();
+    }
+
+    public static function commit(): void {
+        self::pdo()->commit();
+    }
+
+    public static function rollBack(): void {
         if (self::pdo()->inTransaction()) self::pdo()->rollBack();
     }
 
     /** Optional: close/reset connection */
-    public static function reset(): void { self::$pdo = null; }
+    public static function reset(): void {
+        self::$pdo = null;
+    }
 
-    private static function inferType($v): int
-    {
+    private static function inferType($v): int {
         return match (true) {
             is_int($v)   => PDO::PARAM_INT,
             is_bool($v)  => PDO::PARAM_BOOL,

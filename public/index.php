@@ -1,17 +1,23 @@
 <?php
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Config\Env;
+use Router\Api;
+use Router\Routes;
 
 Env::load(__DIR__ . '/../config', false);
-
-$dbHost = Env::get('DB_HOST', 'localhost');
-$debug  = Env::get('APP_DEBUG', false, 'bool');
-
 Env::required(['DB_HOST']);
 
-Env::set('RUNTIME_FLAG', true);
+$app    = new Api();
+$router = $app->router();
 
-// Env::set('APP_NAMDFFE', 'Sektor1921', true);
+// Routen registrieren
+Routes::loadRoutes($router);
 
-echo 'ok';
+// Pfad aus .htaccess holen (Fallback: REQUEST_URI)
+$raw    = $_GET['uri'] ?? $_SERVER['REQUEST_URI'] ?? '/';
+$path   = parse_url($raw, PHP_URL_PATH) ?? '/';
+
+// App ausführen
+$app->run($path);
