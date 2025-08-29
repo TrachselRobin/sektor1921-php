@@ -2,14 +2,10 @@
 
 namespace App\View;
 
-class Home {
-    private string $test;
+use App\Core\View;
 
-    public function __construct() {
-        $this->test = "Hi from the View";
-    }
-
+class Home extends View {
     public function __toString(): string {
-        return $this->test;
+        return json_encode($this->body);
     }
 }
