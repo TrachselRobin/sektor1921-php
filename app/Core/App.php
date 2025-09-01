@@ -35,7 +35,7 @@ class App
         }
 
         $refClass = new ReflectionClass($this->classname);
-        $obj      = $refClass->newInstanceArgs($this->params);
+        $obj = $refClass->newInstanceArgs([$this->params]);
 
         if (method_exists($obj, '__toString')) {
             echo $obj;

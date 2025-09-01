@@ -10,9 +10,10 @@
     }
   },
   "require": {
-    "vlucas/phpdotenv": "^v5.6.2",
     "ext-json": "*",
     "ext-pdo": "*",
+    "ext-mysqli": "*",
+    "vlucas/phpdotenv": "^v5.6.2",
     "firebase/php-jwt": "^v6.11.1"
   }
 }

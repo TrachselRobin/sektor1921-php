@@ -2,18 +2,17 @@
 
 namespace App\Core;
 
-abstract class View {
+abstract class View
+{
     public readonly array $body;
 
-    /**
-     * @param $body
-     */
-    final public function __construct($body) {
+    final public function __construct(array $body) {
         $this->body = $body;
     }
 
-    /**
-     * @return string
-     */
-    abstract public function __toString();
+    final public function __toString(): string {
+        return $this->render();
+    }
+
+    abstract protected function render(): string;
 }

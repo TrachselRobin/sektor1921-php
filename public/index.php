@@ -12,8 +12,8 @@ $raw    = $_GET['uri'] ?? $_SERVER['REQUEST_URI'] ?? '/';
 $path   = parse_url($raw, PHP_URL_PATH) ?? '/';
 
 $body = [
-    'uri' => $path,
+    'uri' => $path
 ];
 
-$app    = new App($path, $body);
+$app = new App($path, $body);
 $app->run();
