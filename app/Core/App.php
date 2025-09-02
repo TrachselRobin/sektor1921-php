@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\View\Error\NotFound;
 use ReflectionClass;
 use ReflectionException;
 
@@ -19,6 +20,10 @@ class App
     public function __construct(string $classname, array $params = []) {
         $this->classname = 'App\\View' . str_replace('/', '\\', $classname);
         $this->params    = $params;
+
+        $notFound = new NotFound($params);
+
+        $this->NOT_FOUND = (string) $notFound;
     }
 
     /**
