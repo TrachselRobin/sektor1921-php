@@ -10,7 +10,7 @@ class NotFound extends View {
         parent::__construct($body);
 
         $div = new Div;
-        $div->innerText('test');
+        $div->innerText('ERROR 404: not found');
 
         $this->main->append($div);
     }
