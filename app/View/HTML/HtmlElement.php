@@ -2,30 +2,118 @@
 
 namespace App\View\HTML;
 
-abstract class HtmlElement {
-    public array $content = [];
+class HtmlElement {
+    private array $content = [];
+    private array $attributes = [];
 
-    abstract public function __toString(): string;
+    /**
+     * @return string
+     */
+    public function __toString(): string {
+        $attributes = $this->getAttributesAsString();
 
+        return '<' . $this->getClassName() . $attributes . '>' . $this->getContent() . '</' . $this->getClassName() . '>';
+    }
+
+    /**
+     * @return string
+     */
+    private function getClassName(): string {
+        return strtolower(get_class($this));
+    }
+
+    /**
+     * @return string
+     */
     public function getContent(): string {
         return implode('', $this->content);
     }
 
-    public function append($content): void {
+    /**
+     * @param array<HtmlElement> ...$contents
+     *
+     * @return void
+     */
+    public function append(...$contents): void {
         if (count($this->content) === 1 && is_string($this->content[0])) {
             $this->content = [];
         }
 
-        if (is_array($content)) {
-            foreach ($content as $item) {
-                $this->content[] = $item;
+        foreach ($contents as $content) {
+            if (is_array($content)) {
+                foreach ($content as $item) {
+                    $this->content[] = $item;
+                }
+            } else {
+                $this->content[] = $content;
             }
-        } else {
-            $this->content[] = $content;
         }
     }
 
-    public function innerText($value): void {
+    /**
+     * @param string $value
+     *
+     * @return void
+     */
+    public function innerText(string $value): void {
         $this->content = [$value];
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     *
+     * @return void
+     */
+    public function addAttribute(string $name, string $value): void {
+        if (!isset($this->attributes[$name])) {
+            $this->attributes[$name] = [];
+        }
+        if (!in_array($value, $this->attributes[$name], true)) {
+            $this->attributes[$name][] = $value;
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     *
+     * @return void
+     */
+    public function removeAttributeValue(string $name, string $value): void {
+        if (isset($this->attributes[$name])) {
+            $this->attributes[$name] = array_values(
+                array_filter($this->attributes[$name], fn($v) => $v !== $value)
+            );
+        }
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return void
+     */
+    public function clearAttribute(string $name): void {
+        $this->attributes[$name] = [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttributes(): array {
+        return $this->attributes;
+    }
+
+    /**
+     * @return string
+     */
+    private function getAttributesAsString(): string {
+        $parts = [];
+        foreach ($this->attributes as $name => $values) {
+            if (!empty($values)) {
+                $parts[] = $name . '="' . htmlspecialchars(implode(' ', $values)) . '"';
+            }
+        }
+        return $parts ? ' ' . implode(' ', $parts) : '';
     }
 }
