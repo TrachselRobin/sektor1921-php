@@ -6,7 +6,9 @@ use App\View\HTML\Elements\Header;
 use App\View\HTML\HtmlPreset;
 
 class defaultHeader extends HtmlPreset {
-    public function __construct() {
-        $this->baseElement = new Header();
+    public function __construct($params = []) {
+        $header = new Header();
+
+        self::append($header);
     }
 }

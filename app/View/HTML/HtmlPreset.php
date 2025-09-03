@@ -3,11 +3,9 @@
 namespace App\View\HTML;
 
 abstract class HtmlPreset extends HtmlElement {
-    public HtmlElement $baseElement;
+    abstract public function __construct($params = []);
 
     public function __toString(): string {
-        return $this->baseElement;
+        return self::getContent();
     }
-
-    abstract public function __construct();
 }

@@ -6,13 +6,13 @@ use App\View\HTML\Elements\Link;
 use App\View\HTML\HtmlPreset;
 
 class Stylesheet extends HtmlPreset {
-    public function __construct() {
-        $this->baseElement = new Link();
-        $this->baseElement->addAttribute('rel', 'stylesheet');
-        $this->baseElement->addAttribute('type', 'text/css');
-    }
+    public function __construct($params = []) {
+        $path = $params['path'] ?? '';
+        $link = new Link();
+        $link->addAttribute('rel', 'stylesheet');
+        $link->addAttribute('type', 'text/css');
+        $link->addAttribute('href', $path);
 
-    public function setPath($path) {
-        $this->baseElement->addAttribute('href', $path);
+        self::append($link);
     }
 }
