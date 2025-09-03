@@ -1,4 +1,5 @@
 <?php
+
 namespace App\View;
 
 use App\Core\View;
