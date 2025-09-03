@@ -8,8 +8,4 @@ class Head extends HtmlPreset {
     public function __construct() {
         self::innerText('Default Head text');
     }
-
-    public function __toString(): string {
-        return '<head>' . self::getContent() . '</head>';
-    }
 }
