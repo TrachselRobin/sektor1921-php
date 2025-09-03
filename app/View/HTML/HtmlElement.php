@@ -18,8 +18,9 @@ class HtmlElement {
     /**
      * @return string
      */
-    private function getClassName(): string {
-        return strtolower(get_class($this));
+    public function getClassName(): string {
+        $reflectionClass = new \ReflectionClass($this);
+        return strtolower($reflectionClass->getShortName());
     }
 
     /**
@@ -30,7 +31,7 @@ class HtmlElement {
     }
 
     /**
-     * @param array<HtmlElement> ...$contents
+     * @param ...$contents
      *
      * @return void
      */
@@ -107,7 +108,7 @@ class HtmlElement {
     /**
      * @return string
      */
-    private function getAttributesAsString(): string {
+    public function getAttributesAsString(): string {
         $parts = [];
         foreach ($this->attributes as $name => $values) {
             if (!empty($values)) {

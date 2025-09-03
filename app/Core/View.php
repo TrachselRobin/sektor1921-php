@@ -3,27 +3,27 @@
 namespace App\Core;
 
 use App\View\HTML\Elements\Body;
-use App\View\HTML\Presets\Head;
-use App\View\HTML\Presets\Header;
-use App\View\HTML\Presets\Main;
-use App\View\HTML\Presets\Footer;
+use App\View\HTML\Presets\defaultHead;
+use App\View\HTML\Presets\defaultHeader;
+use App\View\HTML\Presets\defaultMain;
+use App\View\HTML\Presets\defaultFooter;
 
 abstract class View {
     public readonly array $requestBody;
-    public readonly Head $head;
+    public readonly defaultHead $head;
     public readonly Body $body;
-    public readonly Header $header;
-    public readonly Main $main;
-    public readonly Footer $footer;
+    public readonly defaultHeader $header;
+    public readonly defaultMain $main;
+    public readonly defaultFooter $footer;
 
     public function __construct(array $params) {
         $this->requestBody = $params;
 
-        $this->head   = new Head();
+        $this->head   = new defaultHead();
         $this->body   = new Body();
-        $this->header = new Header();
-        $this->main   = new Main();
-        $this->footer = new Footer();
+        $this->header = new defaultHeader();
+        $this->main   = new defaultMain();
+        $this->footer = new defaultFooter();
     }
 
     final public function __toString(): string {
