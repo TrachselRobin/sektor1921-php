@@ -6,8 +6,7 @@ use App\View\Error\NotFound;
 use ReflectionClass;
 use ReflectionException;
 
-class App
-{
+class App {
     private string $classname;
     private array $params;
 

@@ -5,7 +5,7 @@ namespace App\View\HTML\Elements;
 use App\View\HTML\HtmlElement;
 
 class Meta extends HtmlElement {
-    public function __toString(): string {
+    public function render(): string {
         $attributes = $this->getAttributesAsString();
 
         return '<' . self::getClassName() . $attributes . '>';

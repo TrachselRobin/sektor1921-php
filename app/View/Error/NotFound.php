@@ -3,15 +3,14 @@
 namespace App\View\Error;
 
 use App\Core\View;
-use App\View\HTML\Elements\Div;
+use App\View\HTML\Elements\Body;
 
 class NotFound extends View {
-    public function __construct(array $body = []) {
-        parent::__construct($body);
+    public function createBody(): Body {
+        $body = new Body();
 
-        $div = new Div;
-        $div->innerText('ERROR 404: not found');
+        $body->innerText('Not Found');
 
-        $this->main->append($div);
+        return $body;
     }
 }

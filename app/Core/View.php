@@ -3,27 +3,21 @@
 namespace App\Core;
 
 use App\View\HTML\Elements\Body;
-use App\View\HTML\Presets\defaultHead;
-use App\View\HTML\Presets\defaultHeader;
-use App\View\HTML\Presets\defaultMain;
-use App\View\HTML\Presets\defaultFooter;
+use App\View\HTML\Elements\Head;
+use App\View\HTML\Elements\Html;
 
-abstract class View {
-    public readonly array $requestBody;
-    public readonly defaultHead $head;
-    public readonly Body $body;
-    public readonly defaultHeader $header;
-    public readonly defaultMain $main;
-    public readonly defaultFooter $footer;
+class View {
+    public array $requestBody;
+    public Html $html;
+    public Head $head;
+    public Body $body;
 
     public function __construct(array $params) {
         $this->requestBody = $params;
 
-        $this->head   = new defaultHead();
-        $this->body   = new Body();
-        $this->header = new defaultHeader();
-        $this->main   = new defaultMain();
-        $this->footer = new defaultFooter();
+        $this->html = $this->createHtml();
+        $this->head = $this->createHead();
+        $this->body = $this->createBody();
     }
 
     final public function __toString(): string {
@@ -31,7 +25,34 @@ abstract class View {
     }
 
     private function render(): string {
-        $this->body->append([$this->header, $this->main, $this->footer]);
-        return $this->head . $this->body;
+        $this->html->append($this->head, $this->body);
+        return '<!DOCTYPE html>' . $this->html;
+    }
+
+    public function createHtml(): Html {
+        $html = new Html();
+
+        $html->addAttribute('lang', 'de');
+
+        return $html;
+    }
+
+    public function createHead(): Head {
+        $head = new Head();
+
+        $head->addViewport('width=device-width, initial-scale=1.0');
+        $head->addCharset('utf-8');
+        $head->addStylesheet('./css/general.css');
+        $head->addTitle('Sektor 1921 | Startseite');
+
+        return $head;
+    }
+
+    public function createBody(): Body {
+        $body = new Body();
+
+        $body->innerText('Body');
+
+        return $body;
     }
 }

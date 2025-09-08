@@ -11,4 +11,29 @@ class Head extends HtmlElement {
 
         self::append($stylesheet);
     }
+
+    public function addTitle($title): void {
+        $titleElement = new Title();
+
+        $titleElement->innerText($title);
+
+        self::append($titleElement);
+    }
+
+    public function addViewport($content): void {
+        $meta = new Meta();
+
+        $meta->addAttribute('name', 'viewport');
+        $meta->addAttribute('content', $content);
+
+        self::append($meta);
+    }
+
+    public function addCharset($charset): void {
+        $meta = new Meta();
+
+        $meta->addAttribute('charset', $charset);
+
+        self::append($meta);
+    }
 }
