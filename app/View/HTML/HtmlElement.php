@@ -66,7 +66,7 @@ class HtmlElement {
      *
      * @return void
      */
-    public function addAttribute(string $name, string $value): void {
+    public function addAttribute(string $name, string $value = ''): void {
         if (!isset($this->attributes[$name])) {
             $this->attributes[$name] = [];
         }

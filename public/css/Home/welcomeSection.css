@@ -1,0 +1,11 @@
+#homeWelcomeSection {
+    width: 100%;
+}
+
+#homeWelcomeSection video {
+    max-width: 100%;
+}
+
+#homeWelcomeSection video source {
+    width: 100%;
+}
