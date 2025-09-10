@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\HTML\Presets;
+namespace App\View\HTML\Presets\General;
 
 use App\View\HTML\Elements\Link;
 use App\View\HTML\HtmlPreset;

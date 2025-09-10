@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\HTML\Presets;
+namespace App\View\HTML\Presets\Default;
 
 use App\View\HTML\Elements\Html;
 use App\View\HTML\HtmlPreset;

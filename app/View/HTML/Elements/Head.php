@@ -3,7 +3,7 @@
 namespace App\View\HTML\Elements;
 
 use App\View\HTML\HtmlElement;
-use App\View\HTML\Presets\Stylesheet;
+use App\View\HTML\Presets\General\Stylesheet;
 
 class Head extends HtmlElement {
     public function addStylesheet($path): void {

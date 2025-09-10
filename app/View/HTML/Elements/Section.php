@@ -4,4 +4,4 @@ namespace App\View\HTML\Elements;
 
 use App\View\HTML\HtmlElement;
 
-class Footer extends HtmlElement {}
+class Section extends HtmlElement {}
